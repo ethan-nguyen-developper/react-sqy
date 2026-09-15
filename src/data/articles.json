@@ -1,0 +1,62 @@
+[
+    {
+      "titre": "Les fondamentaux du HTML5",
+      "date": "2024-03-15",
+      "auteur": "Marie Dupont",
+      "contenu": "Le HTML5 a révolutionné le développement web en introduisant de nouvelles sémantiques comme <article>, <section>, <nav> et <header>. Ces éléments remplacent les divs génériques et améliorent l'accessibilité et le SEO. Le HTML5 intègre également des balises multimédias natives (<video>, <audio>) et des APIs comme Canvas, WebSockets et Geolocation, éliminant le besoin de plugins tiers."
+    },
+    {
+      "titre": "CSS Grid vs Flexbox : quand utiliser quoi ?",
+      "date": "2024-04-22",
+      "auteur": "Thomas Bernard",
+      "contenu": "Flexbox excelle pour les mises en page unidimensionnelles (une ligne ou une colonne), tandis que CSS Grid est conçu pour les grilles bidimensionnelles. En pratique, on utilise souvent les deux ensemble : Grid pour la structure globale de la page, Flexbox pour l'alignement interne des composants. La règle simple : si vous alignez des éléments dans une seule direction, Flexbox ; si vous travaillez en lignes ET colonnes simultanément, Grid."
+    },
+    {
+      "titre": "Comprendre le JavaScript asynchrone : Promises et async/await",
+      "date": "2024-05-10",
+      "auteur": "Sophie Martin",
+      "contenu": "Le JavaScript est mono-threadé, mais son event loop permet de gérer l'asynchronisme. Les Promises (ES6) ont remplacé les callbacks et simplifié la gestion des opérations asynchrones. La syntaxe async/await, introduite en ES2017, rend le code asynchrone aussi lisible que du code synchrone. Il est essentiel de maîtriser les patterns try/catch avec await et la gestion des erreurs en chaîne de Promises."
+    },
+    {
+      "titre": "Pourquoi TypeScript s'est imposé dans le développement web moderne",
+      "date": "2024-06-05",
+      "auteur": "Lucas Petit",
+      "contenu": "TypeScript ajoute un système de types statiques au JavaScript, permettant de détecter les erreurs à la compilation plutôt qu'à l'exécution. Avec la montée en complexité des applications SPA, les gains en maintenabilité sont considérables. Les frameworks comme Angular l'intègrent nativement, et React l'adopte massivement. Les types génériques, les interfaces et les types union sont devenus des outils quotidiens pour les équipes de développement."
+    },
+    {
+      "titre": "Les bonnes pratiques du Git pour les équipes",
+      "date": "2024-07-18",
+      "auteur": "Camille Moreau",
+      "contenu": "Le GitFlow, le GitHub Flow ou le GitLab Flow : plusieurs modèles de branching coexistent. Le plus courant en 2024 est le trunk-based development, où le code est fusionné fréquemment sur main avec des feature flags. Les conventions de commit (Conventional Commits) et les pull requests avec code review sont devenues des standards. L'usage des worktrees et des stash a aussi gagné en popularité pour gérer les branches en parallèle."
+    },
+    {
+      "titre": "Optimiser les performances d'une application web",
+      "date": "2024-08-01",
+      "auteur": "Antoine Lefèvre",
+      "contenu": "Les métriques Core Web Vitals (LCP, FID, CLS) sont devenues des facteurs de ranking Google. Les techniques clés incluent : le lazy loading des images et des composants, le code splitting, la compression des assets (Brotli, WebP), le preloading des ressources critiques, et la minimisation du layout shift. Lighthouse et les Chrome DevTools restent les outils de référence pour l'audit."
+    },
+    {
+      "titre": "Node.js et l'écosystème des frameworks backend",
+      "date": "2024-09-12",
+      "auteur": "Julie Garnier",
+      "contenu": "Node.js a transformé le JavaScript en langage full-stack. Express reste le framework le plus utilisé, mais Fastify et Hapi gagnent du terrain pour leurs performances. L'émergence de frameworks comme NestJS (inspiré d'Angular) et de runtimes alternatifs comme Deno et Bun bouscule l'écosystème. La tendance 2024-2025 va vers les frameworks full-stack comme Next.js et Remix qui unifient frontend et backend."
+    },
+    {
+      "titre": "Le responsive design et l'approche mobile-first",
+      "date": "2024-10-08",
+      "auteur": "Nicolas Roux",
+      "contenu": "L'approche mobile-first consiste à concevoir d'abord pour les petits écrans puis à ajouter des breakpoints croissants (min-width) plutôt que de réduire depuis le desktop. Les unités relatives (rem, em, vw) et les fonctions CSS modernes comme clamp() et les container queries permettent un responsive plus fluide. L'accessibilité (WCAG) doit être intégrée dès la conception, pas en après-pensée."
+    },
+    {
+      "titre": "Comprendre les APIs REST et le passage vers GraphQL",
+      "date": "2024-11-20",
+      "auteur": "Élise Fontaine",
+      "contenu": "Les APIs REST reposent sur les verbes HTTP (GET, POST, PUT, DELETE) et des endpoints structurés. GraphQL, créé par Facebook, permet au client de demander exactement les données dont il a besoin, évitant le sur-encodage et le sous-encodage. Les APIs GraphQL s'imposent dans les applications complexes, tandis que REST reste idéal pour les services simples. La tendance actuelle explore aussi les APIs RPC et les formats comme tRPC."
+    },
+    {
+      "titre": "L'accessibilité web : un enjeu technique et légal",
+      "date": "2024-12-02",
+      "auteur": "Hugo Blanchard",
+      "contenu": "L'accessibilité (a11y) garantit que les sites sont utilisables par tous, y compris les personnes en situation de handicap. Les standards WCAG 2.1/2.2 définissent des critères de conformité (A, AA, AAA). En France, la loi pour une République numérique impose l'accessibilité des sites publics. Les bonnes pratiques incluent : l'usage de landmarks ARIA, des contrastes suffisants, la navigation clavier, et des alternatives textuelles pour les médias."
+    }
+  ]   

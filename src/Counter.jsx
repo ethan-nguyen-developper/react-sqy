@@ -4,6 +4,7 @@
 import { useState } from "react";
 
 // 2 - Fonction de composant fonctionnel
+
 function Counter() {
     // A - Données (states, variables)
 
@@ -19,12 +20,12 @@ function Counter() {
     return (
         <>
             <h2>{count}</h2>
-            <button onClick={() => increment(count + 1)}>Click here !</button>
+            <button onClick={() => increment()}>Click here !</button>
             <br />
             <button onClick={() => setCount(0)}>Reset</button>
         </>
-    );
+    )
 }
 
 // 3 - Export du composant
-export default Counter ;
+export default Counter
