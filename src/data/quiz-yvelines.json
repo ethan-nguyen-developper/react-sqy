@@ -1,0 +1,48 @@
+{
+    "quiz_yvelines": [
+      {
+        "id": 1,
+        "question": "Quelle est la préfecture des Yvelines ?",
+        "options": {
+          "A": "Versailles",
+          "B": "Saint-Germain-en-Laye",
+          "C": "Poissy",
+          "D": "Montigny-le-Bretonneux"
+        },
+        "reponse_correcte": "A"
+      },
+      {
+        "id": 2,
+        "question": "Quel château emblématique est situé dans les Yvelines ?",
+        "options": {
+          "A": "Le Château de Chambord",
+          "B": "Le Château de Versailles",
+          "C": "Le Château de Fontainebleau",
+          "D": "Le Château de Vincennes"
+        },
+        "reponse_correcte": "B"
+      },
+      {
+        "id": 3,
+        "question": "Quel grand complexe de loisirs se trouve à Saint-Quentin-en-Yvelines ?",
+        "options": {
+          "A": "Disneyland Paris",
+          "B": "La Défense",
+          "C": "Les Deux Alpes",
+          "D": "Le Parc Astérix"
+        },
+        "reponse_correcte": "D"
+      },
+      {
+        "id": 4,
+        "question": "Quelle ville des Yvelines abrite l'École Spéciale Militaire de Saint-Cyr ?",
+        "options": {
+          "A": "Coëtquidan",
+          "B": "Saint-Cyr-l'École",
+          "C": "Élancourt",
+          "D": "Trappes"
+        },
+        "reponse_correcte": "B"
+      }
+    ]
+  }   
