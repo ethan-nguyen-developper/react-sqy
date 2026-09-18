@@ -3,6 +3,8 @@ import Articles from "./Articles.jsx";
 import Home from "./Home.jsx";
 import Random from "./Random.jsx";
 import Quiz from "./Quiz.jsx";
+import Api from "./Api.jsx";
+import Form from "./Form.jsx";
 
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
@@ -16,7 +18,9 @@ function Menu() {
                 <Link to="/articles">Articles</Link> |{" "}
                 <Link to="/counter">Counter</Link> |{" "}
                 <Link to="/random">Random</Link> |{" "}
-                <Link to="/quiz">Quiz</Link>
+                <Link to="/quiz">Quiz</Link> |{" "}
+                <Link to="/api">Api</Link> |{" "}
+                <Link to="/form">Form</Link>
                 </nav>
 
                 {/* Routes */}
@@ -26,6 +30,8 @@ function Menu() {
                 <Route path="/counter" element={<Counter />} />
                 <Route path="/random" element={<Random />} />
                 <Route path="/quiz" element={<Quiz />} />
+                <Route path="/api" element={<Api />} />
+                <Route path="/form" element={<Form />} />
                 </Routes>
             </BrowserRouter>
         </>
