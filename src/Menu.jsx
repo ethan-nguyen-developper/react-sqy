@@ -5,6 +5,7 @@ import Random from "./Random.jsx";
 import Quiz from "./Quiz.jsx";
 import Api from "./Api.jsx";
 import Form from "./Form.jsx";
+import Todo from "./Todo.jsx";
 
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
@@ -20,7 +21,8 @@ function Menu() {
                 <Link to="/random">Random</Link> |{" "}
                 <Link to="/quiz">Quiz</Link> |{" "}
                 <Link to="/api">Api</Link> |{" "}
-                <Link to="/form">Form</Link>
+                <Link to="/form">Form</Link> |{" "}
+                <Link to="/todo">Todo</Link>
                 </nav>
 
                 {/* Routes */}
@@ -32,6 +34,7 @@ function Menu() {
                 <Route path="/quiz" element={<Quiz />} />
                 <Route path="/api" element={<Api />} />
                 <Route path="/form" element={<Form />} />
+                <Route path="/todo" element={<Todo />} />
                 </Routes>
             </BrowserRouter>
         </>
