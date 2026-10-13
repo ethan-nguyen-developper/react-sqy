@@ -4,15 +4,15 @@
 import articles from "./data/articles.json"
 
 function Articles() {
-    return (
+    return ( 
         <>
-            {articles.map((article, index) =>
+            {articles.map((article, index) => 
                 <div key={index}>
                     <p>{article.titre}</p>
                 </div>
             )}
         </>
-    )
+    );
 }
 
-export default Articles
+export default Articles;

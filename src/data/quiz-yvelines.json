@@ -2,45 +2,166 @@
     "quiz_yvelines": [
       {
         "id": 1,
-        "question": "Quelle est la préfecture des Yvelines ?",
+        "question": "De quelle ancienne forêt le nom « Yvelines » est-il issu ?",
         "options": {
-          "A": "Versailles",
-          "B": "Saint-Germain-en-Laye",
-          "C": "Poissy",
-          "D": "Montigny-le-Bretonneux"
-        },
-        "reponse_correcte": "A"
-      },
-      {
-        "id": 2,
-        "question": "Quel château emblématique est situé dans les Yvelines ?",
-        "options": {
-          "A": "Le Château de Chambord",
-          "B": "Le Château de Versailles",
-          "C": "Le Château de Fontainebleau",
-          "D": "Le Château de Vincennes"
+          "A": "Forêt de Fontainebleau",
+          "B": "Forêt de Rambouillet (ancienne dénomination)",
+          "C": "Forêt d'Écouen",
+          "D": "Forêt de Chantilly"
         },
         "reponse_correcte": "B"
       },
       {
-        "id": 3,
-        "question": "Quel grand complexe de loisirs se trouve à Saint-Quentin-en-Yvelines ?",
+        "id": 2,
+        "question": "En quelle année le département des Yvelines a-t-il été officiellement créé ?",
         "options": {
-          "A": "Disneyland Paris",
-          "B": "La Défense",
-          "C": "Les Deux Alpes",
-          "D": "Le Parc Astérix"
+          "A": "1790",
+          "B": "1964",
+          "C": "1968",
+          "D": "1972"
         },
-        "reponse_correcte": "D"
+        "reponse_correcte": "C"
+      },
+      {
+        "id": 3,
+        "question": "Quel est le point culminant naturel du département des Yvelines ?",
+        "options": {
+          "A": "Mont Valérien (328 m)",
+          "B": "Bois des Frêneaux à Lainville-en-Vexin (200 m)",
+          "C": "Butte d'Élancourt (231 m)",
+          "D": "Mont de Chatou (185 m)"
+        },
+        "reponse_correcte": "B"
       },
       {
         "id": 4,
-        "question": "Quelle ville des Yvelines abrite l'École Spéciale Militaire de Saint-Cyr ?",
+        "question": "Quelle tribu gauloise occupait principalement le territoire des Yvelines à l'époque pré-romaine ?",
         "options": {
-          "A": "Coëtquidan",
-          "B": "Saint-Cyr-l'École",
-          "C": "Élancourt",
-          "D": "Trappes"
+          "A": "Les Parisii",
+          "B": "Les Séquanes",
+          "C": "Les Carnutes",
+          "D": "Les Bellovaques"
+        },
+        "reponse_correcte": "C"
+      },
+      {
+        "id": 5,
+        "question": "Le traité de Saint-Clair-sur-Epte, qui fixe la frontière ouest du territoire, a été conclu en :",
+        "options": {
+          "A": "843",
+          "B": "911",
+          "C": "1066",
+          "D": "1124"
+        },
+        "reponse_correcte": "B"
+      },
+      {
+        "id": 6,
+        "question": "Le château de Dampierre-en-Yvelines a été construit par quel architecte ?",
+        "options": {
+          "A": "André Le Nôtre",
+          "B": "Louis Le Vau",
+          "C": "Jules Hardouin-Mansart",
+          "D": "Robert de Cotte"
+        },
+        "reponse_correcte": "C"
+      },
+      {
+        "id": 7,
+        "question": "Le château de Thoiry a été édifié à partir de 1559 par quel architecte ?",
+        "options": {
+          "A": "Jules Hardouin-Mansart",
+          "B": "Philibert de l'Orme",
+          "C": "Georges-Haudebouret",
+          "D": "Jacques Androuet du Cerceau"
+        },
+        "reponse_correcte": "B"
+      },
+      {
+        "id": 8,
+        "question": "Quelle est la commune la plus étendue des Yvelines en superficie ?",
+        "options": {
+          "A": "Rambouillet",
+          "B": "Versailles",
+          "C": "Saint-Germain-en-Laye (≈ 49 km²)",
+          "D": "Houdan"
+        },
+        "reponse_correcte": "C"
+      },
+      {
+        "id": 9,
+        "question": "Quelle est la plus petite commune des Yvelines en superficie ?",
+        "options": {
+          "A": "Nézel (1 km²)",
+          "B": "Le Port-Marly (1 km²)",
+          "C": "Maisons-Laffitte",
+          "D": "Viroflay"
+        },
+        "reponse_correcte": "B"
+      },
+      {
+        "id": 10,
+        "question": "De quel ancien département les Yvelines ont-elles été détachées ?",
+        "options": {
+          "A": "Seine-Inférieure",
+          "B": "Eure-et-Loir",
+          "C": "Seine-et-Oise",
+          "D": "Val-d'Oise"
+        },
+        "reponse_correcte": "C"
+      },
+      {
+        "id": 11,
+        "question": "Combien d'arrondissements compte le département des Yvelines ?",
+        "options": {
+          "A": "2",
+          "B": "3",
+          "C": "4",
+          "D": "5"
+        },
+        "reponse_correcte": "C"
+      },
+      {
+        "id": 12,
+        "question": "Quel est le gentilé des habitants des Yvelines ?",
+        "options": {
+          "A": "Yvelinois",
+          "B": "Yvelinards",
+          "C": "Yveliniens",
+          "D": "Yvelinois et Yvelinoises uniquement"
+        },
+        "reponse_correcte": "A"
+      },
+      {
+        "id": 13,
+        "question": "Quelle est la superficie approximative de la forêt de Saint-Germain-en-Laye ?",
+        "options": {
+          "A": "1 057 ha",
+          "B": "2 000 ha",
+          "C": "3 500 ha",
+          "D": "5 200 ha"
+        },
+        "reponse_correcte": "C"
+      },
+      {
+        "id": 14,
+        "question": "Le département des Yvelines est classé au rang le plus riche de France :",
+        "options": {
+          "A": "1er",
+          "B": "2e",
+          "C": "3e",
+          "D": "5e"
+        },
+        "reponse_correcte": "C"
+      },
+      {
+        "id": 15,
+        "question": "Quelle loi a initialement décidé la création du département des Yvelines ?",
+        "options": {
+          "A": "Loi du 15 mars 1790",
+          "B": "Loi du 10 juillet 1964",
+          "C": "Loi du 2 mars 1982",
+          "D": "Décret du 31 décembre 1967"
         },
         "reponse_correcte": "B"
       }

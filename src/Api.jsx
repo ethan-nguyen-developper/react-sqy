@@ -1,20 +1,21 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
+
 
 function Api() {
     const [press, setPress] = useState(false)
 
     useEffect(() => {
         fetch('https://fakestoreapi.com/products/1')
-            .then(res=>res.json())
-            .then(json=>console.log(json))
-    }, [press])
+        .then(res => res.json())            
+        .then(json => console.log(json))
+    }, [])
 
-    return (
+    return ( 
         <>
-            <h1>Page Api</h1>
-            <button onClick={() => setPress(!press)}>Press</button>
-        </>
-    )
+            <h1>Page d'api !</h1>    
+            <button onClick={() => setPress(!press)}>State</button>
+        </> 
+    );
 }
 
-export default Api
+export default Api;

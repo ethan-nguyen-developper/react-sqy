@@ -1,8 +1,9 @@
-import Menu from "./Menu.jsx";
+// Imports de composants 
+import Menu from "./Menu.jsx"
+
 
 function App() {
-
-  return(
+  return (
     <>
       <Menu />
     </>
