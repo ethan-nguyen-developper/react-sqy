@@ -1,137 +1,154 @@
-import { useState, useEffect } from "react";
-
-// Imports MUI 
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-
-// Que vérifie-t-on une fois les données du Form transmises ?
-
-// 1 - Tous les champs sont ils remplis ?
-// 2 - Vérifier le format du MDP -> 12car dont au moins 1 car spé, 1 majuscule, 1 minuscule, 1 chiffre (cf CNIL) -> REGEX
-// 3 - Vérifier le format de l'email (et le username) -> REGEX
-// 4 - La correspondance des MDP
-// 5 - Annuler les caractères spéciaux non désirables 
-// 6 - Trimer les données cad enlever les espaces (avant / après) inutiles 
-
-// Comment faire ? On voudrait afficher un message de type erreur quand une des verifications a échouée
-
-// A faire : 
-// Ce qui est listé plus haut 
+import { useState } from 'react'
+import Input from "./Input.jsx"
+import Button from "@mui/material/Button"
+import ToggleButton from "@mui/material/ToggleButton"
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 
 
+import "./style/Form.css"
+// Faire fonctionner le Login et Signup : 
+
+// 1 - Quand on arrive sur notre app React on tombe directement sur le form signup/login  
+// 2 - Empecher l'accès aux autres pages tant que le user n'est pas login (rendu conditionnel)
+// 3 - Il faudra faire les mofis au niveau de la route login coté API 
+// 4 - On se contentera pour le moment de renvoyer un message de confirmation vers le front 
+
+
+
+// Ajouter un bouton qui permette de sélectionner entre Signup et Login 
+// Selon cette sélection afficher les bons inputs 
 function Form() {
-    const [formData, setFormData] = useState({
-        username: "", 
-        email: "", 
-        password: "", 
-        confirm: "", 
+    const [inputValue, setInputValue] = useState({
+        email: "",
+        username: "",
+        password: "",
+        confirm: ""
     })
-    const [view, setView] = useState("signup")
-    const [inputTypes, setInputTypes] = useState(["username", "email", "password", "confirm"])
-    const [error, setError] = useState("")
 
-    // Les expressions régulières/regex nous permettent de vérifier la composition du mail et mdp
-    let passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{6,}$/
-    let emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
+    const [isLogin, setIsLogin] = useState(false)
 
-    // Ici le useEffect vient changer les types d'input lors de chaque changement de vue 
-    // le state view représente la vue en cours (login ou signup) et se trouve ici dans le tableau de dépendances
-    useEffect(() => {
-        if (view === "signup") {
-            setInputTypes(["username", "email", "password", "confirm"])
-        } else {
-            setInputTypes(["username", "password"])
-        }
-    }, [view]) 
+    const updateInputs = (event) =>  {
+        setInputValue({ ...inputValue, [event.target.name] : event.target.value })
+    } 
 
-    // Fonction d'assainissement/vérification des données
-    function checkFormData() {
-        // Trimer les données 
-        let password = formData.password.trim()
-        let email = formData.email.trim()
+    async function handleSubmit(route) {
+        // Vérification des données : leur forme, les 2 mdp etc
+        // On pourra utiliser les ... Expressions régulières aka les REGEX
+        // let emailRegex = new Regexp("[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]")
+        // let passwordRegex = new Regexp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{12,}$")
 
-        // Verif des formats : mdp et email 
-        let checkPassword = passwordRegex.test(password)
-        let checkEmail = emailRegex.test(email)
+        // if (!emailRegex.test(inputValue.email)) {
+        //     console.log("error : format email invalide")
+        // }
+ 
+        // Vérifier que les mdp correspondent bien 
+        // if (inputValue.password != inputValue.confirm) {
+        //     console.log("error : les mdp ne sont pas les memes")
+        // }
 
-        if (!checkPassword) {
-            setError("Le mot de passe n'est pas au bon format")
-            return
-        } else if (!checkEmail) {
-            setError("L'email n'est pas au bon format")
-            return
-        }
-
-        // Verif des correspondances entre mdp et confirm
-        if (password === formData.confirm.trim()) {
-            // On procède à l'envoi des données vers l'API / BDD
-            console.log("Les checks sont réussis on peut envoyer vers l'api")
-        } else {
-            setError("Les mots de passe doivent etre identiques...")
-        }
-    }
-
-    // Fonction de soumission -> Vérifie que tous les champs soient remplis, affiche une erreur sinon
-    function handleSubmit() {
-        inputTypes.forEach((inputType) => {
-            if (formData[inputType] === "") {
-                setError("Veuillez remplir tous les champs")
-                return
-            } 
+        const res = await fetch('http://localhost:3000/user/' + route, {
+            method: 'POST',
+            body: JSON.stringify(inputValue),
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept' : 'application/json'
+            }
         })
 
-        checkFormData()
+        const data = await res.json()
+
+        console.log(data)
     }
 
+    
 
     return ( 
-        <>
-            <Box
-                component="form"
-                sx={{ width: "45vw", padding: "2rem", border: "solid 1px lightgrey", margin:"auto", display:"flex", flexDirection: "column",
-                borderRadius: "20px" }}
-                noValidate
-                autoComplete="off"
+        
+        <div className="wrapper">
+            {/* <button onClick={() => setIsLogin(!isLogin)}>{isLogin ? "Signup" : "Login"}</button> */}
+            <ToggleButtonGroup
+                color="primary"
+                value={isLogin}
+                exclusive
+                onChange={() => setIsLogin(!isLogin)}
+                aria-label="Platform"
             >
-                <ToggleButtonGroup
-                    color="primary"
-                    value={view}
-                    exclusive
-                    aria-label="Platform"
-                    onChange={(event, newView) => setView(newView) }
-                >
-                    <ToggleButton value="login">Login</ToggleButton>
-                    <ToggleButton value="signup">Signup</ToggleButton>
-                </ToggleButtonGroup>
 
+                <ToggleButton value="false">Login</ToggleButton>
+                <ToggleButton value="true">Signup</ToggleButton>
 
+            </ToggleButtonGroup>
 
-                <h1 style={{ marginBottom: "5rem" }}>{ view === "signup" ? "Signup" : "Login"}</h1>
+            <form>
 
-                {inputTypes.map(type => (
-                    <TextField 
-                        key={type}
-                        type={ type == "password" || type == "confirm" ? "password" : "text" } 
-                        name={type}
-                        value={formData[type]}
-                        placeholder={"ici le " + type}
-                        onChange={(e) => setFormData({ ... formData, [type] : e.target.value})}
-                        variant="outlined"
-                        label={type}
-                        sx={{ marginBottom: "1rem" }}
-                    />)
-                )}
+            { isLogin ?
 
-                <Button sx={{ height: "3rem" }} onClick={() => handleSubmit()} variant="contained">Submit</Button>
+                <>
+                    <h2>Formulaire de Login</h2>
+                    
+                    <div className="login-container">
+                        <Input 
+                            type="text" 
+                            name="email" 
+                            onChange={updateInputs} 
+                            inputValue={inputValue} 
+                        />
 
-                { error && <h3 style={{ color: "darkred" }}>{error}</h3> }
+                        <Input 
+                            type="password" 
+                            name="password" 
+                            onChange={updateInputs} 
+                            inputValue={inputValue} 
+                        />
 
-            </ Box>
-        </>
-     );
+                        {/* <button onClick={() => handleSubmit("login")}>Login</button> */}
+                        <Button  onClick={() => handleSubmit("login")} variant="contained">Login</Button>
+                    </div>
+
+                </>         
+
+            :
+            
+                <>
+                    <h2>Formulaire de Signup</h2>
+
+                    <div className="signup-container">
+                        <Input 
+                            type="text" 
+                            name="email" 
+                            onChange={updateInputs} 
+                            inputValue={inputValue} 
+                        />
+                        <Input 
+                            type="text" 
+                            name="username" 
+                            onChange={updateInputs} 
+                            inputValue={inputValue} 
+                        />
+                        <Input 
+                            type="password" 
+                            name="password" 
+                            onChange={updateInputs} 
+                            inputValue={inputValue} 
+                        />
+                        <Input 
+                            type="password" 
+                            name="confirm" 
+                            onChange={updateInputs} 
+                            inputValue={inputValue} 
+                        />
+
+                        {/* <button onClick={() => handleSubmit("signup")}>Signup</button> */}
+                        <Button  onClick={() => handleSubmit("signup")} variant="contained">Signup</Button>
+                    </div>
+                </>
+            }
+
+            </form>
+    
+        </div>
+    )
 }
 
-export default Form;
+export default Form 
