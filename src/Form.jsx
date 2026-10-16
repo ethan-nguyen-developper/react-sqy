@@ -7,19 +7,18 @@ import Button from '@mui/material/Button';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-// Que vérifie-t-on une fois les données du Form transmises ?
 
-// 1 - Tous les champs sont ils remplis ?
-// 2 - Vérifier le format du MDP -> 12car dont au moins 1 car spé, 1 majuscule, 1 minuscule, 1 chiffre (cf CNIL) -> REGEX
-// 3 - Vérifier le format de l'email (et le username) -> REGEX
-// 4 - La correspondance des MDP
-// 5 - Annuler les caractères spéciaux non désirables 
-// 6 - Trimer les données cad enlever les espaces (avant / après) inutiles 
+// Connecter le Front avec le back -> On veut que signup et login soient fonctionnels
 
-// Comment faire ? On voudrait afficher un message de type erreur quand une des verifications a échouée
+// Démarrez votre app express et lancez phpmyadmin (et react bien sur)
 
-// A faire : 
-// Ce qui est listé plus haut 
+// Créer une fonction dans le react qui aura pour role de fetch/post les données après signup et après le login 
+
+// On peut annuler les règles sur le mot de passe pour le moment 
+
+// Il faudra bien vérifier que le nouveau user est crée en BDD / Un message de confirmation doit aussi etre renvoyé quand on se login 
+
+// Pour le moment on renvoit juste un statut 200 avec un message vers le front quand c'est fonctionnel.
 
 
 function Form() {
@@ -45,34 +44,76 @@ function Form() {
         } else {
             setInputTypes(["username", "password"])
         }
+
+        setError("")
     }, [view]) 
 
     // Fonction d'assainissement/vérification des données
     function checkFormData() {
         // Trimer les données 
+        let username = formData.username.trim()
         let password = formData.password.trim()
-        let email = formData.email.trim()
 
-        // Verif des formats : mdp et email 
-        let checkPassword = passwordRegex.test(password)
-        let checkEmail = emailRegex.test(email)
+        if (view == "signup") {
+            let confirm = formData.confirm.trim()
+            let email = formData.email.trim()
+    
+            // let checkPassword = passwordRegex.test(password)
+            let checkEmail = emailRegex.test(email)
+    
+            // if (!checkPassword) {
+            //     setError("Le mot de passe n'est pas au bon format")
+            //     return
+            // } 
+            
+            if (!checkEmail) {
+                setError("L'email n'est pas au bon format")
+                return
+            }
+    
+            // Verif des correspondances entre mdp et confirm
+            if (password !== confirm) {
+                // On procède à l'envoi des données vers l'API / BDD
+                console.log("Les checks sont réussis on peut envoyer vers l'api")
+                setError("Les mdp doivent etre identiques")
+                return
+            } 
 
-        if (!checkPassword) {
-            setError("Le mot de passe n'est pas au bon format")
-            return
-        } else if (!checkEmail) {
-            setError("L'email n'est pas au bon format")
-            return
-        }
+            // Regroupes les données en entrée dans un objet/tableau
+            let finalFormData = {
+                username, 
+                email, 
+                password
+            }
 
-        // Verif des correspondances entre mdp et confirm
-        if (password === formData.confirm.trim()) {
-            // On procède à l'envoi des données vers l'API / BDD
-            console.log("Les checks sont réussis on peut envoyer vers l'api")
+            fetchData(finalFormData)
+
         } else {
-            setError("Les mots de passe doivent etre identiques...")
-        }
+
+            let finalFormData = {
+                username, 
+                password
+            }
+
+            fetchData(finalFormData)
+        }   
     }
+
+    // Fonction qui effectue les requetes vers l'API -> Signup et Login 
+    function fetchData(finalFormData) {
+        let url = (view === "signup") ? "http://localhost:3000/user/signup" : "http://localhost:3000/user/login"
+
+        fetch(url, {
+            method: "POST", 
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(finalFormData)})
+        .then(data => data.json())
+        .then(json => console.log(json))
+        .catch(err => console.log(err))
+    }
+
 
     // Fonction de soumission -> Vérifie que tous les champs soient remplis, affiche une erreur sinon
     function handleSubmit() {
@@ -80,12 +121,10 @@ function Form() {
             if (formData[inputType] === "") {
                 setError("Veuillez remplir tous les champs")
                 return
-            } 
+            }
         })
-
         checkFormData()
     }
-
 
     return ( 
         <>
