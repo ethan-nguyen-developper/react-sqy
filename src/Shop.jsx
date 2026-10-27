@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react"
+import { useEffect, useContext } from "react"
 import { ShopContext } from "./context/ShopContext"
 
 // Dans cette page de eshop on va afficher une liste de produits depuis la Fake Store API (voir la doc)
@@ -13,7 +13,7 @@ import { ShopContext } from "./context/ShopContext"
 import "./Shop.css"
 
 function Shop() {
-    const { products, setProducts, cart, setCart, addToCart } = useContext(ShopContext)
+    const { products, setProducts, cart, addToCart } = useContext(ShopContext)
 
     // On vient fetch les produits depuis la Fake Store API lors du render initial
     useEffect(() => {

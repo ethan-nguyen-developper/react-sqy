@@ -29,12 +29,12 @@ export const ShopContextProvider = ({ children }) => {
         }
     }
 
-    // On vient vérifier la qty, -1 ou on supprime le produit selon
-    function deleteFromCart() {
+    // // On vient vérifier la qty, -1 ou on supprime le produit selon
+    // function deleteFromCart() {
 
-        // Imlpémenter cette fonctionnalité 
+    //     // Imlpémenter cette fonctionnalité 
 
-    }
+    // }
 
     const ShopContextValues = {
         products, 
