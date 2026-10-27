@@ -1,0 +1,425 @@
+.random-page {
+    --ink: #182226;
+    --muted: #687879;
+    --paper: #f4f1e9;
+    --teal: #0e7774;
+    box-sizing: border-box;
+    min-height: calc(100vh - 64px);
+    padding: 24px clamp(24px, 7vw, 112px) 24px;
+    color: var(--ink);
+    background: radial-gradient(circle at 50% 43%, #fffdf6 0, var(--paper) 42%, #e8e5dc 100%);
+    overflow: hidden;
+}
+
+.orbit-layout,
+.result-panel {
+    width: min(100%, 1080px);
+    margin: 0 auto;
+}
+
+.orbit-layout {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.orbit-sidebar {
+    flex: 0 0 118px;
+}
+
+.orbit-layout .remaining-count {
+    justify-items: start;
+}
+
+.eyebrow {
+    margin: 0 0 12px;
+    color: var(--teal);
+    font: 700 11px/1.2 "Trebuchet MS", sans-serif;
+    letter-spacing: 0.16em;
+}
+
+.random-header h1,
+.result-panel h2 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    letter-spacing: 0;
+}
+
+.random-header h1 {
+    font-size: clamp(38px, 6vw, 72px);
+    line-height: 0.96;
+}
+
+.intro {
+    max-width: 370px;
+    margin: 18px 0 0;
+    color: var(--muted);
+    font: 15px/1.5 "Trebuchet MS", sans-serif;
+}
+
+.remaining-count {
+    display: grid;
+    justify-items: end;
+    color: var(--teal);
+}
+
+.remaining-count span {
+    font: 400 52px/0.9 Georgia, "Times New Roman", serif;
+}
+
+.remaining-count small {
+    margin-top: 8px;
+    color: var(--muted);
+    font: 700 10px/1 "Trebuchet MS", sans-serif;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.scoreboard {
+    margin-top: 24px;
+}
+
+.scoreboard .eyebrow {
+    margin-bottom: 10px;
+}
+
+.scoreboard ol {
+    display: grid;
+    gap: 7px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.scoreboard li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgb(24 34 38 / 14%);
+    color: var(--muted);
+    font: 11px/1.1 "Trebuchet MS", sans-serif;
+}
+
+.scoreboard li.is-current {
+    color: var(--teal);
+    border-left: 2px solid var(--teal);
+    padding-left: 6px;
+    font-weight: 700;
+}
+
+.scoreboard li strong {
+    color: var(--ink);
+    font: 700 13px/1 Georgia, "Times New Roman", serif;
+}
+
+.scoreboard li.is-current strong {
+    color: var(--teal);
+}
+
+.orbit-section {
+    position: relative;
+    flex: 1;
+    display: grid;
+    place-items: center;
+    height: min(46vw, 430px);
+    min-height: 350px;
+    margin: 0;
+    perspective: 900px;
+}
+
+.orbit {
+    position: relative;
+    width: 1px;
+    height: 1px;
+    transform-style: preserve-3d;
+}
+
+.orbit.is-spinning {
+    animation: orbit-spin 2.6s cubic-bezier(.2, .75, .25, 1) both;
+}
+
+.student-card {
+    position: absolute;
+    top: -95px;
+    left: -71px;
+    width: 142px;
+    height: 190px;
+    transform: rotateY(var(--card-angle)) translateZ(clamp(190px, 28vw, 285px));
+    transform-style: preserve-3d;
+    transition: filter 250ms ease;
+}
+
+.card-face {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 18px;
+    overflow: hidden;
+    border: 1px solid rgb(24 34 38 / 18%);
+    border-radius: 4px;
+    background: linear-gradient(145deg, #fffdf7, #deddd3);
+    backface-visibility: hidden;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    border-color: rgb(14 119 116 / 40%);
+    background: linear-gradient(145deg, #0e7774, #075250);
+    color: #fffdf7;
+}
+
+.student-card.is-selected .card-face {
+    border-color: var(--teal);
+}
+
+.student-avatar {
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 19px;
+    border-radius: 50%;
+    color: #fffdf7;
+    background: var(--teal);
+    font: 700 17px/1 "Trebuchet MS", sans-serif;
+    object-fit: cover;
+}
+
+.student-initials {
+    display: none;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 19px;
+    border-radius: 50%;
+    color: #fffdf7;
+    background: var(--teal);
+    font: 700 17px/1 "Trebuchet MS", sans-serif;
+}
+
+.card-face strong {
+    font: 400 20px/1.1 Georgia, "Times New Roman", serif;
+}
+
+.card-face span {
+    margin-top: 7px;
+    color: var(--muted);
+    font: 10px/1 "Trebuchet MS", sans-serif;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.card-face .student-points {
+    margin-top: 12px;
+    color: var(--teal);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+}
+
+.card-back .back-mark {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    color: #fff;
+    padding: 0 4px;
+    box-sizing: border-box;
+    font: 700 42px/1 Georgia, "Times New Roman", serif;
+    letter-spacing: 0.04em;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.result-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-top: 14px;
+    border-top: 1px solid rgb(24 34 38 / 18%);
+}
+
+.result-panel h2 {
+    font-size: clamp(28px, 4vw, 43px);
+}
+
+.result-summary {
+    min-width: 0;
+}
+
+.result-points {
+    flex: 1;
+}
+
+.result-current {
+    flex: 1;
+}
+
+.result-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.score-controls {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--teal);
+    font: 700 13px "Trebuchet MS", sans-serif;
+}
+
+.score-readout {
+    display: grid;
+    justify-items: center;
+    gap: 5px;
+}
+
+.score-label {
+    color: var(--teal);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.score-total {
+    min-width: 50px;
+    color: var(--ink);
+    text-align: center;
+}
+
+.score-controls.is-animated .score-digit {
+    visibility: hidden;
+}
+
+.score-digit {
+    display: inline-block;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(28px, 4vw, 43px);
+    font-weight: 400;
+    line-height: 0.9;
+    will-change: transform, opacity;
+}
+
+.score-controls button {
+    display: grid;
+    place-items: center;
+    width: 27px;
+    height: 27px;
+    padding: 0;
+    border: 1px solid var(--teal);
+    border-radius: 50%;
+    color: var(--teal);
+    background: transparent;
+    font: 400 18px/1 Georgia, "Times New Roman", serif;
+}
+
+.score-controls button:hover:not(:disabled),
+.score-controls button:focus-visible:not(:disabled) {
+    color: #fffdf7;
+    background: var(--teal);
+}
+
+.score-controls button:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+.result-name {
+    perspective: 500px;
+}
+
+.result-letter {
+    display: inline-block;
+    will-change: transform, opacity;
+}
+
+.result-letter.is-animated {
+    visibility: hidden;
+}
+
+.result-panel button {
+    display: inline-flex;
+    align-items: center;
+    gap: 22px;
+    padding: 15px 17px 15px 21px;
+    border: 1px solid var(--teal);
+    border-radius: 2px;
+    color: #fffdf7;
+    background: var(--teal);
+    font: 700 13px "Trebuchet MS", sans-serif;
+    transition: transform 180ms ease, background 180ms ease;
+}
+
+.result-panel button:hover,
+.result-panel button:focus-visible {
+    background: #095b59;
+    transform: translateY(-2px);
+}
+
+.result-panel button b {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.result-panel .reset-button {
+    color: var(--teal);
+    background: transparent;
+}
+
+.result-panel .reset-button:hover,
+.result-panel .reset-button:focus-visible {
+    color: #fffdf7;
+    background: var(--teal);
+}
+
+.result-panel .score-controls button {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    color: var(--teal);
+    background: transparent;
+    font: 400 18px/1 Georgia, "Times New Roman", serif;
+}
+
+.result-panel .score-controls button:hover:not(:disabled),
+.result-panel .score-controls button:focus-visible:not(:disabled) {
+    color: #fffdf7;
+    background: var(--teal);
+}
+
+@keyframes orbit-spin {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
+
+@media (max-width: 620px) {
+    .random-page { padding: 18px 20px 18px; }
+    .orbit-layout { align-items: stretch; flex-direction: column; gap: 0; }
+    .orbit-sidebar { flex-basis: auto; }
+    .orbit-layout .remaining-count { padding: 0 0 8px; }
+    .scoreboard { margin: 8px 0 14px; }
+    .remaining-count span { font-size: 38px; }
+    .orbit-section { height: 360px; min-height: 0; }
+    .student-card { transform: rotateY(var(--card-angle)) translateZ(145px) scale(.83); }
+    .result-panel { align-items: flex-start; flex-direction: column; }
+    .result-summary { width: 100%; }
+    .result-actions { width: 100%; flex-direction: column; align-items: stretch; }
+    .result-panel button { width: 100%; justify-content: space-between; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .orbit.is-spinning { animation: none; }
+    .result-panel button { transition: none; }
+}

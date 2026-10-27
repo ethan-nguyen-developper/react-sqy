@@ -1,0 +1,22 @@
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.product-card {
+    padding:2rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-card button {
+    position: absolute;
+    margin: auto;
+    bottom: 0;
+}
+
+.product-card img {
+    width: 100%;
+}
