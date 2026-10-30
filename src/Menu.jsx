@@ -8,6 +8,7 @@ import Api from "./Api.jsx"
 import Form from "./Form.jsx"
 import Todo from "./Todo.jsx"
 import Shop from "./Shop.jsx"
+import Product from "./Product.jsx"
 
 // Imports liés à MUI 
 import AppBar from '@mui/material/AppBar';
@@ -89,6 +90,8 @@ function Menu() {
                 <Route path="/api" element={<Api />} />
                 <Route path="/todo" element={<Todo />} />
                 <Route path="/shop" element={<Shop />} />
+                <Route path="/product/:id" element={<Product />} />
+
             </Routes>
         </BrowserRouter>
     </> );

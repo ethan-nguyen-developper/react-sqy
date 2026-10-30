@@ -1,19 +1,26 @@
 import { useEffect, useContext } from "react"
 import { ShopContext } from "./context/ShopContext"
-
-// Dans cette page de eshop on va afficher une liste de produits depuis la Fake Store API (voir la doc)
-
-// On va utiliser useEffect pour le fetch et useState pour la gestion du state 
-
-// Afin de lister/afficher les produits on pourra utiliser .map 
-
-// On doit pouvoir ajouter des produits à un panier cad enregistrer les produits sélectionnés en 
-// Local Storage 
+import { useNavigate } from "react-router-dom"
 
 import "./Shop.css"
 
+// TODO //
+
+// 1 - Faire page individuelle pour les produits (product.jsx) -> quand on clique sur un item on arrive sur la page dédiée
+// On peut rediriger le user lorsqu'il cliquez sur un produit avec useNavigate
+
+// 2 - Il va falloir coder la route dans le Menu -> product/:id -> on pourra utiliser cette route
+
+// 3 - Sur la page du produit on pourra utilise useParams qui permet de récupérer l'id de l'URL et donc de faire un call API 
+// afin d'afficher les infos du produit souhaité. 
+
+// 4 - L'idée est d'exploiter au maximum le contexte précedemment crée
+
+
 function Shop() {
     const { products, setProducts, cart, addToCart } = useContext(ShopContext)
+
+    let navigate = useNavigate()
 
     // On vient fetch les produits depuis la Fake Store API lors du render initial
     useEffect(() => {
@@ -38,12 +45,12 @@ function Shop() {
             <section className="products-grid">
 
                 {products && products.map((product) => (
-                    <div key={product.id} className="product-card">
+                    <div onClick={() => navigate("/product/" + product.id)} key={product.id} className="product-card">
                         <img src={product.image} alt={product.title} />
                         <h2>{product.title}</h2>
                         <h3>{product.price} £</h3>
                         <button onClick={() => addToCart(product)}>Ajouter au panier</button>
-                </div> )) }
+                    </div> )) }
 
             </section>
         </>
