@@ -107,11 +107,9 @@ function Form() {
             },
             body: JSON.stringify(finalFormData)})
             
-        .then(data => {
-
-            console.log(data)
-
-            let token = data.json()
+        .then(data => data.json())
+        .then(token => {
+            console.log(token)
 
             if (view === "login") {
                 // On enregistre, pour le moment, le token en LS 
@@ -123,8 +121,7 @@ function Form() {
                 // Si on est en signup on change la vue de Signup à Login
                 setView("login")
             }
-        })
-        .catch(err => console.log(err))
+        }).catch(err => console.log(err))
     }
 
 

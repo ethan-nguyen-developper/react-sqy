@@ -1,8 +1,13 @@
 // Dans cette page on peut utiliser useParam qui permet de récup les paramètres dans l'url
 // De cette manière on recup l'id du produit et faire une requete API 
 import { useParams } from "react-router-dom";
-import { useEffect, useContext } from "react"
+import { useEffect, useContext, useState } from "react"
 import { ShopContext } from "./context/ShopContext";
+
+import Button from '@mui/material/Button';
+import Rating from '@mui/material/Rating';
+
+import "./Product.css"
 
 // Exercice notation :
 // On veut permettre aux User de pouvoir noter un produit (ex : avec des étoiles)
@@ -23,7 +28,11 @@ import { ShopContext } from "./context/ShopContext";
 
 
 function Product() {
+    const [rating, setRating] = useState(null)
+
     let { product, setProduct } = useContext(ShopContext)
+
+    let token = localStorage.getItem("token")
 
     let params = useParams()
 
@@ -37,13 +46,37 @@ function Product() {
         .catch(err => console.log(err))
     }, [])
 
+    // Dès qu'un rating est ajouté ou modifié on appelle l'API et on envoit le rating vers le back
+    useEffect(() => {
+        fetch('http://localhost:3000/product/rating', {
+                method: "POST" , 
+                headers : {
+                    'Content-Type' : "application/json",
+                    'Authorization' : `Bearer ${token}`
+                },
+                body : JSON.stringify({ product_id : params.id, note : rating }) 
+        })
+        .then(data => data.json())
+        .then(result => console.log(result))
+        .catch(err => console.log(err))
+    }, [rating])
+
     return ( 
         <>
-            <h2>{product.title}</h2>
-            <img src={product.image} alt={product.title} />
-            <h3>{product.price}</h3>
-            <h4>{product.description}</h4>
-            <button>Ajouter au panier</button>
+            <div className="productCard">
+                <h2>{product.title}</h2>
+                <img src={product.image} alt={product.title} />
+                <h3>{product.price} $</h3>
+                <Rating
+                    name="product-rating"
+                    value={rating}
+                    onChange={(event, newValue) => {
+                        setRating(newValue);
+                    }}
+                />
+                <h4>{product.description}</h4>
+                <Button variant="contained">Ajouter au panier</Button>
+            </div>
         </>
     );
 }
