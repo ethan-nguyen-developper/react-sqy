@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react"
+import { useState, useEffect, useContext } from "react"
 import { ShopContext } from "./context/ShopContext"
 import { useNavigate } from "react-router-dom"
 
@@ -18,7 +18,7 @@ import "./Shop.css"
 
 
 function Shop() {
-    const { products, setProducts, cart, addToCart } = useContext(ShopContext)
+    const { products, setProducts, cart, setCart, addToCart } = useContext(ShopContext)
 
     let navigate = useNavigate()
 
