@@ -5,7 +5,7 @@ import "./Random.css";
 const RANDOM_STORAGE_KEY = "sqy-random-state";
 
 function Random() {
-    const studentList = ["Abdallah", "Nohlan", "Soen", "Ethan", "Mathis", "Tony", "Bastien", "Louis"];
+    const studentList = [ "Nohlan", "Soen", "Ethan", "Mathis", "Tony", "Louis"];
     const [currentStudentList, setCurrentStudentList] = useState(() => {
         try {
             const savedState = localStorage.getItem(RANDOM_STORAGE_KEY);

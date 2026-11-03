@@ -9,6 +9,7 @@ import Form from "./Form.jsx"
 import Todo from "./Todo.jsx"
 import Shop from "./Shop.jsx"
 import Product from "./Product.jsx"
+import Cart from "./Cart.jsx"
 
 // Imports liés à MUI 
 import AppBar from '@mui/material/AppBar';
@@ -70,7 +71,7 @@ function Menu() {
                             <Button color="inherit"><Link to="/shop">Shop</Link> </Button>
                         </nav>
                         
-                        <img src={cartLogo} width={50} height={50} />
+                        <Link to="/cart"><img src={cartLogo} width={50} height={50} /></Link>
 
                         {cart && <p>{cart.length}</p>}
 
@@ -91,6 +92,7 @@ function Menu() {
                 <Route path="/todo" element={<Todo />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/product/:id" element={<Product />} />
+                <Route path="/cart" element={<Cart />} />
 
             </Routes>
         </BrowserRouter>
