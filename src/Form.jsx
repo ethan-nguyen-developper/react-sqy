@@ -109,9 +109,9 @@ function Form() {
             
         .then(data => {
 
-            console.log(JSON.parse(data.body))
+            console.log(data)
 
-            let token = data.body
+            let token = data.json()
 
             if (view === "login") {
                 // On enregistre, pour le moment, le token en LS 

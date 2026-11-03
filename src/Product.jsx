@@ -4,6 +4,24 @@ import { useParams } from "react-router-dom";
 import { useEffect, useContext } from "react"
 import { ShopContext } from "./context/ShopContext";
 
+// Exercice notation :
+// On veut permettre aux User de pouvoir noter un produit (ex : avec des étoiles)
+// Sous chaque produit on affiche la moyenne des notes 
+
+// React : 
+// Coder ce qui sera visible (partie avec les étoiles), rendre la chose visuellement dynamique 
+// Associer un state à la note donnée 
+// Transmettre cette note à l'API -> "product/note" par exemple 
+// Dans la requete vers l'API bien intégrer le JWT avec Authorization : Bearer <token>
+
+// Node : 
+// Ajoute la route d'ajout de notes pour le user -> utiliser le middleware authJWT
+// Enregistrer la note en BDD et renvoyer un message de confirmation 
+
+// BDD : 
+// Associer un User à une note et un produit ... Créer une table Note avec 2 clés étrangères : celle du user lié et du produit 
+
+
 function Product() {
     let { product, setProduct } = useContext(ShopContext)
 

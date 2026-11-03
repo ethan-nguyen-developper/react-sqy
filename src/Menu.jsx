@@ -40,7 +40,7 @@ function Menu() {
     const { cart } = useContext(ShopContext)
 
     return ( <>
-    <AuthProvider>
+        <AuthProvider>
             <BrowserRouter>
             {/* Navigation */}
             <AppBar position="static">
@@ -95,7 +95,7 @@ function Menu() {
                         </Route>
                     </Routes>
                 </BrowserRouter>
-            </ AuthProvider>
+        </ AuthProvider>
     </> );
 }
 
