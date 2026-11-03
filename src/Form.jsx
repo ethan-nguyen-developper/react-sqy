@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router"
+import { useAuth } from "./context/AuthContext"
 
 // Imports MUI 
 import Box from '@mui/material/Box';
@@ -22,19 +24,15 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 
 function Form() {
-    const [formData, setFormData] = useState({
-        username: "", 
-        email: "", 
-        password: "", 
-        confirm: "", 
-    })
-    const [view, setView] = useState("signup")
-    const [inputTypes, setInputTypes] = useState(["username", "email", "password", "confirm"])
-    const [error, setError] = useState("")
+    const { formData, setFormData, view, setView, inputTypes, setInputTypes, error, setError } = useAuth()
 
+    let navigate = useNavigate()
+
+    
     // Les expressions régulières/regex nous permettent de vérifier la composition du mail et mdp
     let passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{6,}$/
     let emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
+
 
     // Ici le useEffect vient changer les types d'input lors de chaque changement de vue 
     // le state view représente la vue en cours (login ou signup) et se trouve ici dans le tableau de dépendances
@@ -89,7 +87,6 @@ function Form() {
             fetchData(finalFormData)
 
         } else {
-
             let finalFormData = {
                 username, 
                 password
@@ -109,8 +106,24 @@ function Form() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(finalFormData)})
-        .then(data => data.json())
-        .then(json => console.log(json))
+            
+        .then(data => {
+
+            console.log(JSON.parse(data.body))
+
+            let token = data.body
+
+            if (view === "login") {
+                // On enregistre, pour le moment, le token en LS 
+                window.localStorage.setItem("token", token)
+                // On redirige ensuite vers la page appropriée avec useNavigate
+                navigate('/')
+
+            } else {
+                // Si on est en signup on change la vue de Signup à Login
+                setView("login")
+            }
+        })
         .catch(err => console.log(err))
     }
 

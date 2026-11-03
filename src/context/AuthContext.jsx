@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, createContext } from "react"
-import { useNavigate } from "react-router-dom"
+
 
 const AuthContext = createContext()
 
@@ -14,113 +14,50 @@ export function AuthProvider({ children }) {
     const [view, setView] = useState("signup")
     const [inputTypes, setInputTypes] = useState(["username", "email", "password", "confirm"])
     const [error, setError] = useState("")
+    // Rajouter le state qui contiendra le token (token) et un state lié au User
+    const [token, setToken] = useState(() => localStorage.getItem('token'))
+    const [user, setUser] = useState(null)
 
     // Les expressions régulières/regex nous permettent de vérifier la composition du mail et mdp
     let passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{6,}$/
     let emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
 
-    let navigate = useNavigate()
-
-
-        // Fonction d'assainissement/vérification des données
-    function checkFormData() {
-        // Trimer les données 
-        let username = formData.username.trim()
-        let password = formData.password.trim()
-
-        if (view == "signup") {
-            let confirm = formData.confirm.trim()
-            let email = formData.email.trim()
     
-            // let checkPassword = passwordRegex.test(password)
-            let checkEmail = emailRegex.test(email)
-    
-            // if (!checkPassword) {
-            //     setError("Le mot de passe n'est pas au bon format")
-            //     return
-            // } 
-            
-            if (!checkEmail) {
-                setError("L'email n'est pas au bon format")
-                return
+
+    // Rajouter un useEffect -> à chaque fois que la valeur de token (le payload) change on récupère celui-ci 
+    // on le convertir depuis JSON et on crée un state avec le USer qui contient les infos liées au User dans le token 
+    // Si on ne parvient pas à recup les infos, ou une erreur, on logout 
+    useEffect(() => {
+        if (token) {
+            try {
+                const payload = JSON.parse(token.split('.')[1])
+                setUser(payload)
+            } catch(err) {
+                // Il faudrait idéalement logout la personne
+                console.log(err)
             }
-    
-            // Verif des correspondances entre mdp et confirm
-            if (password !== confirm) {
-                // On procède à l'envoi des données vers l'API / BDD
-                console.log("Les checks sont réussis on peut envoyer vers l'api")
-                setError("Les mdp doivent etre identiques")
-                return
-            } 
+        }
+    }, [token]) 
 
-            // Regroupes les données en entrée dans un objet/tableau
-            let finalFormData = {
-                username, 
-                email, 
-                password
-            }
+    // Si on a bien un token valable dans notre state dans ce cas on veut retourner True dans une variable de 
+    // type isAuthenticated sinon False. La valeur de cette variable nous ervira à déterminer si on autorise ou pas le user 
+    // à accéder à une route protégée 
 
-            fetchData(finalFormData)
-
-        } else {
-            let finalFormData = {
-                username, 
-                password
-            }
-
-            fetchData(finalFormData)
-        }   
-    }
-
-    // Fonction qui effectue les requetes vers l'API -> Signup et Login 
-    function fetchData(finalFormData) {
-        let url = (view === "signup") ? "http://localhost:3000/user/signup" : "http://localhost:3000/user/login"
-
-        fetch(url, {
-            method: "POST", 
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(finalFormData)})
-            
-        .then(data => {
-
-            console.log(JSON.parse(data.body))
-
-            let token = data.body
-
-            if (view === "login") {
-                // On enregistre, pour le moment, le token en LS 
-                window.localStorage.setItem("jwt", token)
-                // On redirige ensuite vers la page appropriée avec useNavigate
-                navigate('/')
-
-            } else {
-                // Si on est en signup on change la vue de Signup à Login
-                setView("login")
-            }
-        })
-        .catch(err => console.log(err))
-    }
+    // Création de la variable isAuthenticated qui contiendra un booléen -> Vrai si token, Faux sinon 
+    // Ici l'utilisation de !! va changer la variable en booléen (ça va permettre d'afficher false pouyr les valeurs null, undefined et "")
+    const isAuthenticated = !!token
+    // const isAuthenticated = Boolean(token)
 
 
-    // Fonction de soumission -> Vérifie que tous les champs soient remplis, affiche une erreur sinon
-    function handleSubmit() {
-        inputTypes.forEach((inputType) => {
-            if (formData[inputType] === "") {
-                setError("Veuillez remplir tous les champs")
-                return
-            }
-        })
-        checkFormData()
-    }
 
     let AuthContextValues = {
         formData, setFormData,
         view, setView, 
         inputTypes, setInputTypes,
         error, setError, 
-        checkFormData, fetchData, handleSubmit
+        token, setToken, 
+        user, setUser, 
+        isAuthenticated,
     }
 
     return <AuthContext.Provider value={AuthContextValues}>{children}</AuthContext.Provider>

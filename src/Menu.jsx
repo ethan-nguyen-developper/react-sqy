@@ -10,9 +10,11 @@ import Todo from "./Todo.jsx"
 import Shop from "./Shop.jsx"
 import Product from "./Product.jsx"
 import Cart from "./Cart.jsx"
+import NoPage from "./NoPage.jsx"
 
 // Imports liés à MUI 
 import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -20,33 +22,26 @@ import MenuIcon from '@mui/icons-material/Menu';
 import cartLogo from "./assets/cart.svg"
 
 // Imports liés au contexte
-import { ShopContext } from "./context/ShopContext.jsx"
+import { ShopContext, ShopContextProvider } from "./context/ShopContext.jsx"
+import { AuthProvider } from "./context/AuthContext.jsx"
+
+// Import de la route protegée 
+import { PrivateRoute } from "./auth/PrivateRoute.jsx"
 
 // Imports liés au routeur
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { useContext } from "react"
+import { useContext, useState, useEffect } from "react"
 
 // Import pour le CSS 
 import "./Menu.css"
 
 
-// Afficher le svg du caddie dans la NavBar 
-
-// Créer un fichier de contexte -> ShopContext qui sera dans le dossier context 
-// Dans ce fichier vous viendrez importer les éléments nécessaires (createContext, useContext)
-
-// 1 - Vous allez créer le contexte avec createContexte - sans valeur initiale 
-// 2 - Vous allez créer le contexteProvider - Sous forme de fonction 
-
-
-
 function Menu() {
     const { cart } = useContext(ShopContext)
 
-    console.log(cart)
-
     return ( <>
-        <BrowserRouter>
+    <AuthProvider>
+            <BrowserRouter>
             {/* Navigation */}
             <AppBar position="static">
                 <Toolbar>
@@ -71,31 +66,36 @@ function Menu() {
                             <Button color="inherit"><Link to="/shop">Shop</Link> </Button>
                         </nav>
                         
-                        <Link to="/cart"><img src={cartLogo} width={50} height={50} /></Link>
-
+                        <Link to="/cart"><img  src={cartLogo} width={50} heigh={50} /></Link> 
                         {cart && <p>{cart.length}</p>}
 
                 </Toolbar>
                 
-
             </AppBar>
 
-            {/* Routes */}
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/random" element={<Random />} />
-                <Route path="/articles" element={<Articles />} />
-                <Route path="/counter" element={<Counter />} />
-                <Route path="/quiz" element={<Quiz />} />
-                <Route path="/form" element={<Form />} />
-                <Route path="/api" element={<Api />} />
-                <Route path="/todo" element={<Todo />} />
-                <Route path="/shop" element={<Shop />} />
-                <Route path="/product/:id" element={<Product />} />
-                <Route path="/cart" element={<Cart />} />
+            
+                {/* Routes */}
+                    <Routes>
+                        {/* Ici mes routes non-protégées */}
+                        <Route path="/form" element={<Form />} />
+                        <Route path="*" element={<NoPage />} />
 
-            </Routes>
-        </BrowserRouter>
+                        {/* Ici j'ai mes routes protégées  */}
+                        <Route element={ <PrivateRoute /> } >
+                            <Route path="/" element={<Home />} />
+                            <Route path="/random" element={<Random />} />
+                            <Route path="/articles" element={<Articles />} />
+                            <Route path="/counter" element={<Counter />} />
+                            <Route path="/quiz" element={<Quiz />} />
+                            <Route path="/api" element={<Api />} />
+                            <Route path="/todo" element={<Todo />} />
+                            <Route path="/shop" element={<Shop />} />
+                            <Route path="/product/:id" element={<Product />} />
+                            <Route path="/cart" element={<Cart />} />
+                        </Route>
+                    </Routes>
+                </BrowserRouter>
+            </ AuthProvider>
     </> );
 }
 
